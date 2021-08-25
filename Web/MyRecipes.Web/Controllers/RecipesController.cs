@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MyRecipes.Services.Data;
 using MyRecipes.Web.ViewModels.Recipes;
 using System;
 using System.Collections.Generic;
@@ -9,20 +10,36 @@ namespace MyRecipes.Web.Controllers
 {
     public class RecipesController : Controller
     {
+        private readonly ICategoriesService categoriesService;
+        private readonly IRecipesService recipesService;
+
+        public RecipesController(
+            ICategoriesService categoriesService,
+            IRecipesService recipesService
+            )
+        {
+            this.categoriesService = categoriesService;
+            this.recipesService = recipesService;
+        }
+
         public IActionResult Create()
         {
-            return View();
+            var viewModel = new CreateRecipeInputModel();
+            viewModel.CategoriesItems = categoriesService.GetAllAsKeyValuePairs();
+            return View(viewModel);
         }
 
         [HttpPost]
-        public IActionResult Create(CreateRecipeInputModel input)
+        public async Task<IActionResult> Create(CreateRecipeInputModel input)
         {
             if (!ModelState.IsValid)
             {
-                return View();
+                input.CategoriesItems = categoriesService.GetAllAsKeyValuePairs();
+                return View(input);
             }
 
-            //TODO: Create recipe using service method
+            await recipesService.CreateAsync(input);
+            
             //TODO: Redirect to recipe info page
             return Redirect("/");
         }
