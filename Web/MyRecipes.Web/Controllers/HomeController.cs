@@ -2,6 +2,7 @@
 {
     using System.Diagnostics;
     using System.Linq;
+    using AutoMapper;
     using Microsoft.AspNetCore.Mvc;
     using MyRecipes.Data;
     using MyRecipes.Data.Common.Repositories;
@@ -21,7 +22,14 @@
 
         public IActionResult Index()
         {
-            var viewModel = countsService.GetCounts();
+            var countsDto = countsService.GetCounts();
+            var viewModel = new IndexViewModel
+            {
+                RecipesCount = countsDto.RecipesCount,
+                CategoriesCout = countsDto.CategoriesCout,
+                IngredientsCount = countsDto.IngredientsCount,
+                ImagesCount = countsDto.ImagesCount,
+            };
             return this.View(viewModel);
         }
 
