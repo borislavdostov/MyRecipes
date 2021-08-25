@@ -1,4 +1,4 @@
-﻿namespace MyRecipes.Web.Controllers
+﻿ namespace MyRecipes.Web.Controllers
 {
     using System.Diagnostics;
 

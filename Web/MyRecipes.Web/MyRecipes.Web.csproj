@@ -12,6 +12,9 @@
   <ItemGroup>
     <AdditionalFiles Include="..\..\stylecop.json" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
@@ -35,5 +38,9 @@
     <ProjectReference Include="..\..\Services\MyRecipes.Services\MyRecipes.Services.csproj" />
     <ProjectReference Include="..\MyRecipes.Web.Infrastructure\MyRecipes.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\MyRecipes.Web.ViewModels\MyRecipes.Web.ViewModels.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Administration\Views\Dashboard\" />
   </ItemGroup>
 </Project>
