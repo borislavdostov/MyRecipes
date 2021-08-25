@@ -464,7 +464,7 @@ namespace MyRecipes.Data.Migrations
                         .HasForeignKey("AddedByUserId");
 
                     b.HasOne("MyRecipes.Data.Models.Recipe", "Recipe")
-                        .WithMany()
+                        .WithMany("Images")
                         .HasForeignKey("RecipeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -531,6 +531,8 @@ namespace MyRecipes.Data.Migrations
 
             modelBuilder.Entity("MyRecipes.Data.Models.Recipe", b =>
                 {
+                    b.Navigation("Images");
+
                     b.Navigation("Ingredients");
                 });
 #pragma warning restore 612, 618

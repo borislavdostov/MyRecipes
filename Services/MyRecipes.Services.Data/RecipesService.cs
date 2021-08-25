@@ -37,7 +37,7 @@ namespace MyRecipes.Services.Data
 
             foreach (var inputIngredient in input.Ingredients)
             {
-                var ingredient = ingredientsRepository.All().FirstOrDefault(i => i.Name.Equals(inputIngredient.Name));
+                var ingredient = ingredientsRepository.All().FirstOrDefault(i => i.Name == inputIngredient.Name);
                 if (ingredient == null)
                 {
                     ingredient = new Ingredient
