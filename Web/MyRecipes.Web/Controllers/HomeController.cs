@@ -1,15 +1,32 @@
-﻿ namespace MyRecipes.Web.Controllers
+﻿namespace MyRecipes.Web.Controllers
 {
     using System.Diagnostics;
-
+    using System.Linq;
     using Microsoft.AspNetCore.Mvc;
+    using MyRecipes.Data;
     using MyRecipes.Web.ViewModels;
+    using MyRecipes.Web.ViewModels.Home;
 
     public class HomeController : BaseController
     {
+        private readonly ApplicationDbContext db;
+
+        public HomeController(ApplicationDbContext db)
+        {
+            this.db = db;
+        }
+
         public IActionResult Index()
         {
-            return this.View();
+            var viewModel = new IndexViewModel
+            {
+                RecipesCount = db.Recipes.Count(),
+                CategoriesCout = db.Categories.Count(),
+                IngredientsCount = db.Ingredients.Count(),
+                ImagesCount = db.Images.Count(),
+            };
+
+            return this.View(viewModel);
         }
 
         public IActionResult Privacy()
